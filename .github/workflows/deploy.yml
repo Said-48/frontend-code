@@ -1,0 +1,57 @@
+name: Deploy to Production
+
+on:
+  push:
+    branches: [ main ]
+    tags:
+      - 'v*'
+
+jobs:
+  deploy:
+    name: Deploy Application
+    runs-on: ubuntu-latest
+    environment: production
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20.x'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run tests
+        run: npm run test:ci
+        env:
+          CI: true
+
+      - name: Build application
+        run: npm run build
+        env:
+          CI: true
+          VITE_API_URL: ${{ secrets.VITE_API_URL }}
+
+      - name: Deploy to hosting
+        run: |
+          echo "Deploy step - configure based on your hosting provider"
+          echo "Examples: Vercel, Netlify, AWS S3, etc."
+        # Add your deployment script here
+        # For example, for Vercel:
+        # - name: Deploy to Vercel
+        #   uses: amondnet/vercel-action@v25
+        #   with:
+        #     vercel-token: ${{ secrets.VERCEL_TOKEN }}
+        #     vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
+        #     vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
+        #     vercel-args: '--prod'
+
+      - name: Notify deployment status
+        if: always()
+        run: |
+          echo "Deployment completed with status: ${{ job.status }}"
+          # Add notification logic here (Slack, Discord, email, etc.)
