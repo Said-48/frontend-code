@@ -26,6 +26,7 @@ class APIClient {
                 ...this.getAuthHeaders(),
                 ...options.headers,
             },
+            Credentials: 'include',
         };
 
         try {
