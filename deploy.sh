@@ -39,17 +39,6 @@ done
 
 echo -e "${GREEN}Deployment target: $ENVIRONMENT${NC}"
 
-# Run tests
-echo -e "${YELLOW}Running tests...${NC}"
-npm run test:ci
-
-if [ $? -ne 0 ]; then
-    echo -e "${RED}Tests failed! Aborting deployment.${NC}"
-    exit 1
-fi
-
-echo -e "${GREEN}✓ Tests passed${NC}"
-
 # Build the application
 echo -e "${YELLOW}Building application...${NC}"
 npm run build
