@@ -1,0 +1,35 @@
+# Dependencies
+node_modules/
+
+# Testing
+coverage/
+tests/
+*.test.js
+*.test.jsx
+*.spec.js
+*.spec.jsx
+
+# Development files
+.env
+.env.local
+.env.development
+*.log
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Git
+.git/
+.gitignore
+
+# Documentation
+*.md
+!README.md
+
+# Config files
+jest.config.cjs
+babel.config.cjs
+.eslintrc.*
